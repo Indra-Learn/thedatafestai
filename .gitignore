@@ -192,3 +192,16 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+
+.venv/
+*.pyc
+# __pycache__/
+# instance/
+# .pytest_cache/
+# .coverage
+# htmlcov/
+# dist/
+# build/
+# *.egg-info/
+secret.py
