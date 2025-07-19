@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_stock_market.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <!-- Fixed Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="logo.png" alt="Logo" width="40" style="vertical-align: middle;">
+            <h2 style="display: inline-block; margin-left: 10px;"">TheDataFestAI</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('stock_market.home') }}">Home</a></li>
+            <li><a href="{{ url_for('stock_market.daily_market_status') }}">Short Term Market Status</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Notifications</a></li>
+            <li><a href="#">Help</a></li>            
+        </ul>
+    </div>
+
+    <!-- Fixed Top Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">Stock Market - Analysis</div>
+        <div class="navbar-menu">
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Scrollable Main Content -->
+    <main class="main-content">
+        <div class="content-card">
+            {% block first_content %}{% endblock %}
+        </div>
+
+        <div class="content-card">
+            <h2>Recent Activity</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            <p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>Statistics</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            <p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>More Content</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            <p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            <p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            <p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+        </div>
+    </main>
+</body>
+</html>

@@ -17,7 +17,7 @@ from secret import tidb_connection_secret
 conn = mysql.connector.connect(**tidb_connection_secret)
 cur = conn.cursor()
 
-def test_tidb_conn(table_name=None):
+def test_tidb_conn():
     try:
         cur.execute("SELECT CURDATE()")
         row = cur.fetchone()
@@ -27,7 +27,7 @@ def test_tidb_conn(table_name=None):
     finally:
         conn.close()
         
-def read_from_table(table_name: str, columns_list: list, other_clause: str=""):
+def tidb_read_from_table(table_name: str, columns_list: list, other_clause: str=""):
     columns_str = (", ").join(columns_list)
     dynamic_query_str = (f"select {columns_str}"
                         f" from {table_name}"
@@ -45,3 +45,21 @@ def read_from_table(table_name: str, columns_list: list, other_clause: str=""):
     finally:
         conn.close()
     return json_data
+
+def tidb_read_by_query(query: str=""):
+    try:
+        cur.execute(query)
+        row_headers=[x[0] for x in cur.description]
+        rows = cur.fetchall()
+        print(f"{cur.rowcount=}")
+        json_data = list()
+        for row in rows:
+            json_data.append(dict(zip(row_headers, row)))
+    except Exception as e:
+        print(f'Error: {e}')
+    finally:
+        conn.close()
+    return json_data
+
+def tidb_write_by_sql_files(file_path):
+    pass

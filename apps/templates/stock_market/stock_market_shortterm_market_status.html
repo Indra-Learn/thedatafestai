@@ -1,0 +1,35 @@
+{% extends 'base_stock_market.html' %}
+
+{% block title %}Stock Market{% endblock %}
+
+{% block first_content %}
+    <h1>Daily Market Status of <strong>NSE</strong>(National Stock Exchange)</h1>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>52WeekHigh</th>
+                <th>52WeekLow</th>
+                <th>UpperCircuit</th>
+                <th>LowerCircuit</th>
+                <th>StocksAdvances</th>
+                <th>StocksDeclines</th>
+                <th>StocksUnchanged</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for date, details in first_content.items() %}
+            <tr class="{% if details.WeekHigh > details.WeekLow %}high-salary{% elif details.WeekHigh < details.WeekLow %}low-salary{% endif %}">
+                <td>{{ date }}</td>
+                <td>{{ details.WeekHigh }}</td>
+                <td>{{ details.WeekLow }}</td>
+                <td>{{ details.UpperCircuit }}</td>
+                <td>{{ details.LowerCircuit }}</td>
+                <td>{{ details.StocksAdvances }}</td>
+                <td>{{ details.StocksDeclines }}</td>
+                <td>${{ "{:,}".format(details.StocksUnchanged) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

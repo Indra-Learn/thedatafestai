@@ -20,6 +20,10 @@ Welcome to the `Developer Guide`
     python -m pip install --upgrade pip
     python -m pip install -r requirements.txt
     ```
+4. Run the app
+    ```shell
+    flask --app apps run --debug
+    ```
 
 
 ## Support Document Links:
