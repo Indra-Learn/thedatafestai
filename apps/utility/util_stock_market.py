@@ -10,7 +10,7 @@ class NSE_URL_FETCH(object):
         "Accept-Language": "en-US,en;q=0.5"
     }
     
-    def __init__(self, api_url, base_url=None, headers=None, session=None):        
+    def __init__(self, base_url=None, headers=None, session=None):        
         if headers == None:
             self.headers = NSE_URL_FETCH.headers
         else:
@@ -20,7 +20,6 @@ class NSE_URL_FETCH(object):
             self.base_url = NSE_URL_FETCH.base_url
         else:
             self.base_url = base_url
-        self.nse_url = f"{self.base_url}/{api_url}"
             
         if not session:
             self.session = requests.Session()
@@ -30,7 +29,8 @@ class NSE_URL_FETCH(object):
     
         
     def __call__(self, *args, **kwargs):
-        response = self.session.get(self.nse_url, headers=self.headers)
+        nse_url = f"{self.base_url}/{args[0]}"
+        response = self.session.get(nse_url, headers=self.headers)
         return response.json()
 
 

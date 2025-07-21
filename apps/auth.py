@@ -12,7 +12,7 @@ sys.path.append(parentdir)
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-print(parentdir)
+# print(parentdir)
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
