@@ -5,8 +5,8 @@
 {% block first_content %}
     <h1>Daily Market Status of <strong><a href="https://www.nseindia.com/" target="_blank" rel="noopener noreferrer">NSE</a></strong>(National Stock Exchange)</h1>
 
-    {% for date, details in first_content.items() %}
-    
+    {% for date, details in first_contents.items() %}
+
     <table class="table-grid">
         <thead>
             <tr>
@@ -32,8 +32,8 @@
                 </thead>
                 <tbody>
                     <tr class="{% if details.WeekHigh > details.WeekLow %}green-header{% elif details.WeekHigh < details.WeekLow %}red-header{% endif %}">
-                        <td>{{ details.WeekHigh }}</td>
-                        <td>{{ details.WeekLow }}</td>
+                        <td><a href="https://www.nseindia.com/market-data/52-week-high-equity-market" target="_blank" rel="noopener noreferrer">{{ details.WeekHigh }}</a></td>
+                        <td><a href="https://www.nseindia.com/market-data/52-week-low-equity-market" target="_blank" rel="noopener noreferrer">{{ details.WeekLow }}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -48,8 +48,8 @@
                 </thead>
                 <tbody>
                     <tr class="{% if details.UpperCircuit >  details.LowerCircuit %}green-header{% elif details.UpperCircuit < details.LowerCircuit %}red-header{% endif %}">
-                        <td>{{ details.UpperCircuit }}</td>
-                        <td>{{ details.LowerCircuit }}</td>
+                        <td><a href="https://www.nseindia.com/market-data/upper-band-hitters" target="_blank" rel="noopener noreferrer">{{ details.UpperCircuit }}</a></td>
+                        <td><a href="https://www.nseindia.com/market-data/lower-band-hitters" target="_blank" rel="noopener noreferrer">{{ details.LowerCircuit }}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -73,7 +73,23 @@
             </table>
         </div>
     </div>
+
     {% endfor %}
 
-    {{ first_content_index | safe }}
+{% endblock %}
+
+{% block second_content %}
+  <details>
+    <summary>
+        Daily status of NSE Indexs(Sector wise): <button class="pill-btn {% if second_contents_details[0] > second_contents_details[1] %}green-header{% endif %}">{{ second_contents_details[0] }} Up</button> &nbsp; <button class="pill-btn {% if second_contents_details[1] > second_contents_details[0] %}red-header{% endif %}">{{ second_contents_details[1] }} Down</button>
+    </summary>
+    <div class="card-body">
+      {{ second_contents | safe }}
+    </div>
+  </details>
+{% endblock %}
+
+{% block third_content %}
+    <h2>FII & DII Data</h2>
+    {{ third_contents_fii_dii | safe}}
 {% endblock %}

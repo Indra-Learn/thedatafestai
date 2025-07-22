@@ -13,6 +13,17 @@ from apps.utility.util_stock_market import NSE_URL_FETCH
 
 bp = Blueprint('stock_market', __name__, url_prefix='/stock_market') 
 
+def df_col_style_advanced(row):
+    percentage = row["percChange"]
+    if percentage > 0:
+        class_name = "green-header"
+        tooltip = f"Exceeded target by {percentage:.1f}%"
+    else:
+        class_name = "red-header"
+        tooltip = f"Missed target by {abs(percentage):.1f}%"
+    return f'<a class="{class_name}" title="{tooltip}" href="#">{row["percChange"]}</a>'
+    
+    
 @bp.route('/', methods=['GET'])
 def home():
     return render_template('stock_market/stock_market_home.html')
@@ -40,10 +51,18 @@ def daily_market_status():
     index_data_df.drop(columns=["timeVal", "constituents"], inplace=True)
     index_data_df.drop(["indicativeClose", "icChange", "icPerChange", "isConstituents"], axis=1, inplace=True)
     index_data_df['indexName'] = index_data_df['indexName'].apply(lambda x: f'''<a href="https://www.nseindia.com/index-tracker/{x}" target="_blank">{x}</a>''')
-    # index_data_df['indexName'] = index_data_df.apply(lambda row: f'''<a href="https://www.nseindia.com/index-tracker/" target="_blank">{row.indexName}</a>''')
-    index_data_html = index_data_df.to_html(index=False, classes="my-table", border=0, 
+    second_contents_details_tupple = (index_data_df['percChange'] > 0).sum(), (index_data_df['percChange'] <= 0).sum()
+    index_data_df['percChange'] = index_data_df.apply(df_col_style_advanced, axis=1)
+    index_data_html = index_data_df.to_html(index=False, classes="df-table", border=1, 
                                             float_format=lambda x: f'{x:,.2f}', justify='center', escape=False)
     
+    fii_dii_obj = NSE_URL_FETCH()
+    fii_dii_data = fii_dii_obj("api/fiidiiTradeReact")
+    fii_dii_data_df = pd.DataFrame(fii_dii_data)
+    fii_dii_data_df["netValue"] = fii_dii_data_df["netValue"].apply(lambda x: f'<button class="pill-btn green-header">{x}</button>' if float(x) > 0 else f'<button class="pill-btn red-header">{x}</button>')
+    print(f"{fii_dii_data_df=}")
+    fii_dii_data_html = fii_dii_data_df.to_html(index=False, classes="df-table", border=1, float_format=lambda x: f'{x:,.2f}', justify='center', escape=False)
     return render_template('stock_market/stock_market_shortterm_market_status.html',
-                           first_content = daily_market_status_data_dict,
-                           first_content_index = index_data_html)
+                           first_contents = daily_market_status_data_dict,
+                           second_contents_details = second_contents_details_tupple, second_contents = index_data_html, 
+                           third_contents_fii_dii = fii_dii_data_html)

@@ -1,5 +1,6 @@
 import requests
 from urllib.parse import urlparse
+# from time import sleep
         
 
 class NSE_URL_FETCH(object):
@@ -21,16 +22,18 @@ class NSE_URL_FETCH(object):
         else:
             self.base_url = base_url
             
-        if not session:
-            self.session = requests.Session()
-        else:
-            self.session = session
-        self.session.get(self.base_url, headers=self.headers)
+        # if not session:
+        #     self.session = requests.Session()
+        # else:
+        #     self.session = session
+        # self.session.get(self.base_url, headers=self.headers)
     
         
     def __call__(self, *args, **kwargs):
+        session = requests.Session()
+        session.get(self.base_url, headers=self.headers)
         nse_url = f"{self.base_url}/{args[0]}"
-        response = self.session.get(nse_url, headers=self.headers)
+        response = session.get(nse_url, headers=self.headers)
         return response.json()
 
 
