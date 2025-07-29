@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_learning.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/friendly.min.css">
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+        
+        function copyCode(button) {
+            const codeContainer = button.parentNode;
+            const codeBlock = codeContainer.querySelector('pre code');
+            const range = document.createRange();
+            range.selectNode(codeBlock);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            
+            // Visual feedback
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = 'Copy';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

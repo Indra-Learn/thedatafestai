@@ -9,11 +9,10 @@ def create_app(test_config=None):
     #     DATABASE = os.path.join(app.instance_path, 'apps.sqlite')
     # )
     
-    from . import auth, stock_market
+    from . import home, learning, auth, stock_market
+    app.register_blueprint(home.bp)
+    app.register_blueprint(learning.bp)
     app.register_blueprint(auth.bp)
     app.register_blueprint(stock_market.bp)
     
-    @app.route("/")
-    def home():
-        return "Home Page"
     return app
