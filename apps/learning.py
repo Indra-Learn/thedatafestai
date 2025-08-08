@@ -107,7 +107,7 @@ def get_markdown_content(filename):
     try:
         with open(os.path.join(MARKDOWN_FOLDER, filename), 'r', encoding='utf-8') as f:
             content = f.read()
-        return Markup(render_markdown_with_highlight(content))
+        return render_markdown_with_highlight(content)
     except FileNotFoundError:
         return None
 
