@@ -9,6 +9,10 @@ Welcome to the `Developer Guide`
     git clone https://github.com/Indra-Learn/thedatafestai.git
     cd thedatafestai
     ```
+2. Set the Github-Remote url:
+    ```shell
+    git remote set-url origin https://easycloudapi:<personal_access_token_start_with_ghp>@github.com/Indra-Learn/thedatafestai.git
+    ```
 2. Create & Activate the Python Virtual Environment:
     ```shell
     py -3 -m venv .venv
