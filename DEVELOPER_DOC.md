@@ -12,11 +12,21 @@ Welcome to the `Developer Guide`
 2. Set the Github-Remote url:
     ```shell
     git remote set-url origin https://easycloudapi:<personal_access_token_start_with_ghp>@github.com/Indra-Learn/thedatafestai.git
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
     ```
 2. Create & Activate the Python Virtual Environment:
     ```shell
-    py -3 -m venv .venv
+    python -m venv .venv
     .venv\Scripts\activate
+    ```
+3. Change the scope
+    ```shell
+    # open windows Powershell with "Run as administrator"
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+    # or
+    # Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
     ```
 3. Install the packages:
     ```shell

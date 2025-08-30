@@ -1,5 +1,8 @@
 requests==2.32.4
 pandas==2.3.1
+pyspark==4.0.0
+ipykernel==6.30.1
+kaggle
 Flask==3.1.1
 # python-dotenv==1.1.0
 mysql-connector-python==9.3.0
